@@ -32,6 +32,7 @@ class BitVMXBitcoinScriptsDTO(BaseModel):
     choice_read_search_scripts: List[BitcoinScript]
     read_trace_script: BitcoinScript
     trigger_read_challenge_scripts: BitcoinScriptList
+    cached_trigger_read_challenge_address: Dict[str, str] = Field(default_factory=dict)
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -91,6 +92,25 @@ class BitVMXBitcoinScriptsDTO(BaseModel):
         )
         return trigger_challenge_address
 
+    @property
+    def trigger_read_challenge_scripts_list(self) -> BitcoinScriptList:
+        return self.trigger_read_challenge_scripts
+
+    def trigger_read_challenge_address(self, destroyed_public_key: PublicKey) -> P2trAddress:
+        if destroyed_public_key.to_hex() in self.cached_trigger_read_challenge_address:
+            return P2trAddress(
+                self.cached_trigger_read_challenge_address[destroyed_public_key.to_hex()]
+            )
+        trigger_read_challenge_address = (
+            self.trigger_read_challenge_scripts_list.get_taproot_address(
+                public_key=destroyed_public_key
+            )
+        )
+        self.cached_trigger_read_challenge_address[destroyed_public_key.to_hex()] = (
+            trigger_read_challenge_address.to_string()
+        )
+        return trigger_read_challenge_address
+
     def choice_read_search_scripts_address(
         self, destroyed_public_key: PublicKey, iteration: int
     ) -> P2trAddress:
@@ -108,6 +128,9 @@ class BitVMXBitcoinScriptsDTO(BaseModel):
     def trigger_challenge_taptree(self):
         return self.trigger_challenge_scripts_list.to_scripts_tree()
 
+    def trigger_read_challenge_taptree(self):
+        return self.trigger_read_challenge_scripts_list.to_scripts_tree()
+
     def trigger_challenge_index(self, index: int) -> int:
         return index
 
@@ -116,7 +139,10 @@ class BitVMXBitcoinScriptsDTO(BaseModel):
             self.trigger_challenge_scripts
         ) + self.wrong_hash_challenge_script_list.list_index_from_choice(choice=choice)
 
-    def trigger_read_search_challenge_index(self, index: int):
+    def trigger_read_wrong_hash_challenge_index(self, choice: int):
+        return self.wrong_hash_challenge_script_list.list_index_from_choice(choice=choice)
+
+    def trigger_read_search_challenge_index(self, index: int) -> int:
         return (
             len(self.trigger_challenge_scripts) + len(self.wrong_hash_challenge_script_list) + index
         )

@@ -12,10 +12,12 @@ class BitVMXWrapper:
         self.fail_actor = "verifier"
         # self.fail_actor = "prover"
         # self.fail_step = "1234567890"
-        self.fail_step = "256"
+        self.fail_step = "345"
         # self.fail_step = None
         self.fail_type = "--fail-execute"
         # self.fail_type = "--fail-hash"
+        # self.fail_type = "--fail-read-1-last-step"
+        # self.fail_type = "--fail-read-1-val"
         self.contains_fail = (
             self.fail_actor is not None
             and self.fail_actor in self.base_path
@@ -56,7 +58,7 @@ class BitVMXWrapper:
             "--limit",
             str(index),
         ]
-        if self.contains_fail:
+        if self.contains_fail and int(self.fail_step) <= index:
             command.extend([self.fail_type, self.fail_step])
 
         execution_directory = self.base_path + setup_uuid
@@ -68,6 +70,8 @@ class BitVMXWrapper:
             )
             print("Done executing command")
             execution_trace = result.stdout
+            # TODO: remove when bugs are fixed
+            execution_trace = list(filter(lambda x: x != "", execution_trace.split("\n")))[-1]
             return execution_trace
 
         except subprocess.CalledProcessError as e:
