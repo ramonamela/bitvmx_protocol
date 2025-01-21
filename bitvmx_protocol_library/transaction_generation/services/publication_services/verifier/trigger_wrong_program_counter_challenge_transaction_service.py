@@ -193,7 +193,7 @@ class TriggerWrongProgramCounterChallengeTransactionService:
         )
 
         broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_wrong_program_counter_challenge_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_wrong_program_counter_challenge_tx
         )
 
         print(

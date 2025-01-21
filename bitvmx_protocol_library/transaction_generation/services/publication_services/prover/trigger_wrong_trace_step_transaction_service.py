@@ -100,7 +100,7 @@ class TriggerWrongTraceStepTransactionService:
         )
 
         broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trace_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trace_tx
         )
 
         print(

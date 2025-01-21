@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings
 class ProtocolProperties(BaseSettings):
     verifier_list: List[str]
     prover_host: str
+    sentry_dsn: Optional[str] = None
     prover_address: Optional[str] = None
     prover_private_key: Optional[str] = None
     funding_tx_id: Optional[str] = None

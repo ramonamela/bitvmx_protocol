@@ -117,7 +117,7 @@ class GenericTriggerWrongLatterStepChallengeTransactionService:
         )
 
         broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_read_challenge_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_read_challenge_tx
         )
         print(
             "Trigger wrong latter step challenge transaction: "

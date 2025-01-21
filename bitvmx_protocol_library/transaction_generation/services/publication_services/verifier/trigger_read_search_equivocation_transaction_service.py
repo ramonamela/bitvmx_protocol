@@ -121,7 +121,7 @@ class TriggerReadSearchEquivocationTransactionService:
             )
         )
 
-        broadcast_transaction_service(transaction=trigger_challenge_tx.serialize())
+        broadcast_transaction_service(transaction=trigger_challenge_tx)
 
         print(
             "Trigger read search equivocation challenge transaction: "

@@ -104,7 +104,7 @@ class GenericTriggerWrongInitValueChallengeTransactionService:
         )
 
         broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_equivocation_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_equivocation_tx
         )
 
         print(

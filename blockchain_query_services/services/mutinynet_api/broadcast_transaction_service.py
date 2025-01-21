@@ -1,9 +1,10 @@
 import requests
+from bitcoinutils.transactions import Transaction
 
 
 class BroadcastTransactionService:
 
-    def __call__(self, transaction):
+    def __call__(self, transaction: Transaction):
         url = "https://mutinynet.com/api/tx"
         headers = {
             "Accept": "application/json, text/plain, */*",
@@ -21,7 +22,7 @@ class BroadcastTransactionService:
             "sec-ch-ua-platform": '"macOS"',
         }
 
-        response = requests.post(url, headers=headers, data=transaction)
+        response = requests.post(url, headers=headers, data=transaction.serialize())
 
         if not response.status_code == 200:
             raise Exception(response.text)

@@ -156,7 +156,7 @@ class TriggerExecutionChallengeTransactionService:
         )
 
         broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_execution_challenge_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.trigger_execution_challenge_tx
         )
         print(
             "Trigger execution challenge transaction: "

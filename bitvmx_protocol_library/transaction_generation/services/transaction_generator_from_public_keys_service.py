@@ -1,3 +1,4 @@
+
 from bitcoinutils.keys import P2wpkhAddress
 from bitcoinutils.transactions import Transaction, TxInput, TxOutput
 
@@ -21,6 +22,7 @@ class TransactionGeneratorFromPublicKeysService:
         self,
         bitvmx_protocol_setup_properties_dto: BitVMXProtocolSetupPropertiesDTO,
     ) -> BitVMXTransactionsDTO:
+        print("Init transaction generator ")
 
         destroyed_public_key = bitvmx_protocol_setup_properties_dto.unspendable_public_key
 

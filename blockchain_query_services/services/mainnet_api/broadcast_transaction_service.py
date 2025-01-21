@@ -1,9 +1,10 @@
 import requests
+from bitcoinutils.transactions import Transaction
 
 
 class BroadcastTransactionService:
 
-    def __call__(self, transaction):
+    def __call__(self, transaction: Transaction):
         url = "https://mempool.space/api/tx"
         headers = {
             "accept": "application/json, text/plain, */*",
@@ -21,7 +22,7 @@ class BroadcastTransactionService:
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
         }
 
-        response = requests.post(url, headers=headers, data=transaction)
+        response = requests.post(url, headers=headers, data=transaction.serialize())
 
         if not response.status_code == 200:
             raise Exception(response.text)

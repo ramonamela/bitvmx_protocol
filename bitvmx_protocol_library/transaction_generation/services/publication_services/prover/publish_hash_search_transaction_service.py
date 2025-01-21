@@ -161,7 +161,7 @@ class PublishHashSearchTransactionService:
         broadcast_transaction_service(
             transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.search_hash_tx_list[
                 iteration
-            ].serialize()
+            ]
         )
         bitvmx_protocol_prover_dto.published_hashes_dict.update(iteration_hashes_dict)
         print(

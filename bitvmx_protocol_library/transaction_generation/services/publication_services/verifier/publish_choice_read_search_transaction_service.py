@@ -193,7 +193,7 @@ class PublishChoiceReadSearchTransactionService:
             broadcast_transaction_service(
                 transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.read_search_choice_tx_list[
                     iteration
-                ].serialize()
+                ]
             )
 
             bitvmx_protocol_verifier_dto.read_search_choices.append(current_choice)
@@ -249,7 +249,7 @@ class PublishChoiceReadSearchTransactionService:
             broadcast_transaction_service(
                 transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.read_search_choice_tx_list[
                     iteration
-                ].serialize()
+                ]
             )
 
             bitvmx_protocol_verifier_dto.read_search_choices.append(current_choice)

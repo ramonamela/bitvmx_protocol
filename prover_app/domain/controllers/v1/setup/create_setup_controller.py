@@ -323,7 +323,7 @@ class CreateSetupController:
         )
 
         self.broadcast_transaction_service(
-            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.funding_tx.serialize()
+            transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.funding_tx
         )
         print(
             "Funding transaction: "

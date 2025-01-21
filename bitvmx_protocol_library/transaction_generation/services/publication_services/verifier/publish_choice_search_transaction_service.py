@@ -87,7 +87,7 @@ class PublishChoiceSearchTransactionService:
         broadcast_transaction_service(
             transaction=bitvmx_protocol_setup_properties_dto.bitvmx_transactions_dto.search_choice_tx_list[
                 iteration
-            ].serialize()
+            ]
         )
         bitvmx_protocol_verifier_dto.search_choices.append(current_choice)
         bitvmx_protocol_verifier_dto.published_hashes_dict = new_published_hashes_dict
