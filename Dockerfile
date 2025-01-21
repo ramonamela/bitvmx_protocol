@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn:python3.11 AS bitvmx-base
+FROM tiangolo/uvicorn-gunicorn:python3.10 AS bitvmx-base
 
 RUN apt-get update
 

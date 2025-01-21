@@ -1,4 +1,3 @@
-
 from bitcoinutils.keys import P2wpkhAddress
 from bitcoinutils.transactions import Transaction, TxInput, TxOutput
 
