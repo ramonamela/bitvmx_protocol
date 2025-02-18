@@ -44,6 +44,8 @@ services:
       - "8443:8443"
     networks:
       - bitvmx-net
+    depends_on:
+      - mempool_web
     volumes:
       - type: bind
         source: regtestbitcoin.conf
@@ -52,6 +54,62 @@ services:
 #      - type: bind
 #        source: ./bitcoin_data
 #        target: /root/.bitcoin
+
+  mempool_web:
+    environment:
+      FRONTEND_HTTP_PORT: "8080"
+      BACKEND_MAINNET_HTTP_HOST: "mempool_api"
+    image: mempool/frontend:latest
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 3s
+    command: "./wait-for mempool_db:3306 --timeout=720 -- nginx -g 'daemon off;'"
+    ports:
+      - "8082:8080"
+    depends_on:
+      - mempool_api
+    networks:
+      - bitvmx-net
+
+  mempool_api:
+    environment:
+      MEMPOOL_BACKEND: "none"
+      CORE_RPC_HOST: host.docker.internal
+      # CORE_RPC_HOST: "127.27.0.1"
+      CORE_RPC_PORT: "8443"
+      CORE_RPC_USERNAME: "myuser"
+      CORE_RPC_PASSWORD: "SomeDecentp4ssw0rd"
+      DATABASE_ENABLED: "true"
+      DATABASE_HOST: "mempool_db"
+      DATABASE_DATABASE: "mempool"
+      DATABASE_USERNAME: "mempool"
+      DATABASE_PASSWORD: "mempool"
+      STATISTICS_ENABLED: "true"
+    image: mempool/backend:latest
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 3s
+    command: "./wait-for-it.sh mempool_db:3306 --timeout=720 --strict -- ./start.sh"
+    # volumes:
+    #   - ./data/:/backend/cache
+    depends_on:
+      - mempool_db
+    networks:
+      - bitvmx-net
+
+  mempool_db:
+    environment:
+      MYSQL_DATABASE: "mempool"
+      MYSQL_USER: "mempool"
+      MYSQL_PASSWORD: "mempool"
+      MYSQL_ROOT_PASSWORD: "admin"
+    image: mariadb:10.5.21
+    restart: on-failure
+    stop_grace_period: 3s
+    # volumes:
+    #   - ./mysql/data:/var/lib/mysql
+    networks:
+      - bitvmx-net
 
   format:
     build:
