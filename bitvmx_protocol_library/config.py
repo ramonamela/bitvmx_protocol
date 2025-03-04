@@ -9,9 +9,9 @@ class CommonProtocolProperties(BaseSettings):
     network: Optional[BitcoinNetwork] = BitcoinNetwork.MUTINYNET
     initial_amount_satoshis: int
     step_fees_satoshis: int
-    choice_fees_satoshis: int
-    hash_fees_satoshis: int
-    trigger_fees_satoshis: int
+    # choice_fees_satoshis: int
+    # hash_fees_satoshis: int
+    # trigger_fees_satoshis: int
 
     class Config:
         env_file = ".env_common"

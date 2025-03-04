@@ -1,3 +1,6 @@
 [submodule "BitVMX-CPU"]
 	path = BitVMX-CPU
 	url = git@github.com:FairgateLabs/BitVMX-CPU.git
+[submodule "electrs"]
+	path = electrs
+	url = git@github.com:mempool/electrs.git
